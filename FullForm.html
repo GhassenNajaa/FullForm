@@ -1,0 +1,233 @@
+<html>
+<head>
+<script>
+
+
+function ExprRegNomOuPrenom(ch) 
+{
+   
+   
+   var 
+   
+   er1=/^[A-Za-z]+$/;
+   
+   
+   er2=/^[A-Za-z]+(\-[A-Za-z]+)*$/;
+   
+   
+   er3=/^\s*[A-Za-z]+(\-[A-Za-z]+)*(\s+[A-Za-z]+(\-[A-Za-z]+)*)*\s*$/;
+   
+  return er3.test(ch);
+}
+
+
+
+function NomCorrect() 
+{
+   nom=document.getElementById("nom").value;
+   return ExprRegNomOuPrenom (nom);
+   
+   
+}
+
+
+
+function PrenomCorrect() 
+{
+   prenom=document.getElementById("prenom").value;
+   return ExprRegNomOuPrenom (prenom);
+   
+   
+}
+
+
+
+function JourCorrect() 
+{ 
+  
+  
+  
+  var er = /^\d\d?$/;
+  
+  jour=document.getElementById("jour").value;
+  if (er.test(jour))
+  {
+    return (eval(jour)>=1) && (eval(jour)<=31) ;
+  }
+  else return false;
+
+  
+}
+
+
+
+function MoisCorrect() 
+{
+  
+  
+  var er = /^\d\d?$/;
+  
+  mois=document.getElementById("mois").value;
+  
+  if (er.test(mois))
+  {
+    return (eval(mois)>=1) && (eval(mois)<=12) ;
+  }
+  else return false;
+  
+   
+}
+
+
+
+function AnneeCorrecte() 
+{
+  
+  var er =/^\d{4}$/;
+
+  annee=document.getElementById("annee").value;
+  
+  return er.test(annee);
+   
+}
+
+
+
+
+
+function Verifier () 
+{
+  
+  if (!NomCorrect()) {alert("Nom incorrect!"); return false; }
+
+  if (!PrenomCorrect()) {alert("Prenom incorrect!"); return false;}
+  
+  if (!JourCorrect()) {alert("Jour incorrect!"); return false;}
+  
+  if (!MoisCorrect()) {alert("Mois incorrect!"); return false;}
+  
+  if (!AnneeCorrecte()) {alert("Année incorrecte!"); return false;}
+
+  return true;
+
+}
+
+
+
+
+function FormerPhrase() 
+{
+  var 
+  
+  nom=document.getElementById("nom").value,
+  
+  prenom=document.getElementById("prenom").value,
+  
+  mr=document.getElementById("H").checked,
+  
+  jour=document.getElementById("jour").value,
+  
+  mois=document.getElementById("mois").value,
+  
+  annee=document.getElementById("annee").value,
+  
+  IndexLieu=document.getElementById("Lieu").selectedIndex,
+  
+  Lieu=document.getElementById("Lieu").options[IndexLieu].value,
+  
+  SansEmploi=document.getElementById("SansEmploi").checked,
+  
+  phrase="";
+  
+  
+  
+  if (mr) {phrase="Monsieur ";} else phrase="Madame ";
+  
+  phrase=phrase+" "+nom+" "+prenom ;
+  
+  if (mr) {phrase=phrase+", né le ";} else phrase=phrase+", née le ";
+  
+  phrase=phrase+jour+"/"+mois+"/"+annee;
+  
+  phrase=phrase+" à "+Lieu;
+  
+  if (SansEmploi)
+  phrase=phrase+", actuellement sans emploi";
+  
+  document.getElementById("DonneesSaisies").value=phrase;
+  
+}
+
+
+
+</script>
+
+</head>
+
+
+
+<body> 
+
+
+
+<form>
+
+<table>
+  <tr >    
+    <td>Nom  </td> 
+    <td colspan=3> <input type="text" id="nom"> </td> 
+  </tr>
+  <tr >    
+    <td>Prenom </td> 
+    <td colspan=3> <input type="text" id="prenom"> </td> 
+  </tr>
+  
+  <tr >    
+    <td>Sexe</td> 
+    <td><input type="radio" name="sexe"  id="H" checked="true">H</td>
+    <td><input type="radio" name="sexe"  id="F" >F</td>
+    
+    
+  </tr>  
+  
+  <tr>
+    <td>Sans emploi</td>
+    <td colspan=3><input type="checkbox" id="SansEmploi" ></td>
+  </tr>
+   
+  <tr >    
+    <td>Date de naissance </td> 
+    <td> <input type="text" id="jour" size=1 maxlength=2> </td> 
+    <td> <input type="text" id="mois" size=1 maxlength=2> </td>
+    <td> <input type="text" id="annee" size=4 maxlength=4> </td>
+  </tr> 
+  
+  <tr>
+    <td>Lieu de naissance</td>
+    <td colspan=3>
+       <select id="Lieu">
+            <option value="Djerba">Djerba</option>
+            <option value="Medenine">Medenine</option>
+            <option value="Tunis">Tunis</option>
+       </select>
+    </td>
+  </tr>
+ 
+  <tr>
+     <td colspan=4> 
+        <input type="button" value="Phrase" onCLick="Verifier();FormerPhrase()">
+    </td>
+  </tr>
+  
+  <tr>
+       <td colspan="4" align="center">
+          <textarea id="DonneesSaisies" rows="2" cols="30"></textarea>
+      </td>
+  </tr>
+
+</table></form>
+
+
+</body>
+
+</html>
